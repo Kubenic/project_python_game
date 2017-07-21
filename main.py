@@ -1,6 +1,14 @@
-import pygame, sys
+import pygame, sys, json
+from pprint import pprint
 from pygame import *
+from classes.player import Player
 
+with open('map.json') as data_file:    
+	data = json.load(data_file)
+
+print(len(data["map"][0]))
+
+joueur = Player((300,200))
 pygame.init()
 
 tileswidthNumber = 50
@@ -32,5 +40,7 @@ while continuer:
 		if event.type == pygame.QUIT:
 			sys.exit()
 
+	joueur.handle_event(event)
+	fenetre.blit(joueur.image, joueur.rect)
 	pygame.display.update();
 	continue
