@@ -51,11 +51,11 @@ while continuer:
         monster.move()
 
     fenetre.blit(pygame.transform.scale(monster.image, (30, 30)), monster.rect)
-
+    joueur.set_monster_pos(monster.rect)
     joueur.handle_event(event)
     fenetre.blit(pygame.transform.scale(joueur.image, (30, 30)), joueur.rect)
     fenetre.blit(pygame.transform.scale(joueur.arm_img, (30, 30)), joueur.arm_rect)
 
     monsterMove += 1
-    pygame.display.update();
+    pygame.display.update()
     continue

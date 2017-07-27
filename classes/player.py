@@ -24,6 +24,7 @@ class Player(pygame.sprite.Sprite):
         self.arm_rect.topleft = tuple(x-y for x, y in zip(position, (20, 0)))
 
         self.orientation = "left"
+        self.monster_pos = ()
 
     def get_frame(self, frame_set):
         self.frame += 1
@@ -73,6 +74,9 @@ class Player(pygame.sprite.Sprite):
 
         self.image = self.sheet.subsurface(self.sheet.get_clip())
 
+    def set_monster_pos(self, monster_position):
+        self.monster_pos = monster_position
+
     def attack(self):
         self.status = "attacking"
 
@@ -80,6 +84,13 @@ class Player(pygame.sprite.Sprite):
             self.arm_img = pygame.transform.rotate(self.arm.subsurface(self.arm.get_clip()), 40)
         if self.orientation == "right":
             self.arm_img = pygame.transform.rotate(self.arm.subsurface(self.arm.get_clip()), -120)
+
+        posx_width = self.monster_pos.x + self.monster_pos.width
+        posy_height = self.monster_pos.y + self.monster_pos.height
+
+        #if self.arm_rect.x > self.monster_pos.x and (self.arm_rect + self.arm_rect.width) < (self.monster_pos.x + self.monster_pos.width):
+        print(self.monster_pos.x + self.monster_pos.width)
+        print(self.arm_rect)
 
     def handle_event(self, event):
         if event.type == pygame.QUIT:

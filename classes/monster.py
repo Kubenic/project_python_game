@@ -18,6 +18,8 @@ class Monster(pygame.sprite.Sprite):
         self.up_states = {0: (0, 48, 16, 16), 1: (16, 48, 16, 16), 2: (32, 48, 16, 16), 3: (48, 48, 16, 16)}
         self.down_states = {0: (0, 0, 16, 16), 1: (16, 0, 16, 16), 2: (32, 0, 16, 16), 3: (48, 0, 16, 16)}
 
+        self.lifepoint = 20
+
     def get_frame(self, frame_set):
         self.frame += 1
         if self.frame > (len(frame_set) - 1):
