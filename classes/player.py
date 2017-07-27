@@ -9,12 +9,13 @@ class Player(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.topleft = position
 		self.frame = 0
+		self.width = 32
+		self.height = 32
 		self.left_states = { 0: (0, 16, 16, 16), 1: (16, 16, 16, 16), 2: (32, 16, 16, 16), 3: (48, 16, 16, 16) }
 		self.right_states = { 0: (0, 32, 16, 16), 1: (16, 32, 16, 16), 2: (32, 32, 16, 16), 3: (48, 32, 16, 16) }
 		self.up_states = { 0: (0, 48, 16, 16), 1: (16, 48, 16, 16), 2: (32, 48, 16, 16), 3: (48, 48, 16, 16) }
 		self.down_states = { 0: (0, 0, 16, 16), 1: (16, 0, 16, 16), 2: (32, 0, 16, 16), 3: (48, 0, 16, 16) }
-		#print('hello world')
-		#print(pygame)
+
 
 	def get_frame(self, frame_set):
 		self.frame += 1
