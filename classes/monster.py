@@ -1,9 +1,13 @@
 import pygame
+import random
 
 
 class Monster(pygame.sprite.Sprite):
     def __init__(self, position):
-        self.sheet = pygame.image.load('DawnLike/Characters/Undead0.png');
+        self.position = position
+        self.pos = 0
+        self.arrayPosition = ['left', 'right', 'up', 'down']
+        self.sheet = pygame.image.load('DawnLike/Commissions/Paladin.png');
         self.sheet.set_clip(0, 0, 16, 16)
         self.image = self.sheet.subsurface(self.sheet.get_clip())
         self.rect = self.image.get_rect()
@@ -52,51 +56,18 @@ class Monster(pygame.sprite.Sprite):
 
         self.image = self.sheet.subsurface(self.sheet.get_clip())
 
-    def handle_event(self, event):
-        if event.type == pygame.QUIT:
-            game_over = True
+    def attack(self):
+        self.status = "attacking"
 
-        if event.type == pygame.KEYDOWN:
+        if self.orientation == "left":
+            self.arm_img = pygame.transform.rotate(self.arm.subsurface(self.arm.get_clip()), 40)
+        if self.orientation == "right":
+            self.arm_img = pygame.transform.rotate(self.arm.subsurface(self.arm.get_clip()), -120)
 
-            # Deplacement
-            if event.key == pygame.K_LEFT:
-                self.update('left')
-                self.orientation = 'left'
-            if event.key == pygame.K_RIGHT:
-                self.update('right')
-                self.orientation = 'right'
-            if event.key == pygame.K_UP:
-                self.update('up')
-            if event.key == pygame.K_DOWN:
-                self.update('down')
+    def move(self):
+        if (random.randrange(0, 10, 1) > 6):
+            self.pos = random.randrange(0, 3, 1)
 
-        if event.type == pygame.KEYUP:
-
-            # Deplacement
-            if event.key == pygame.K_LEFT:
-                self.update('stand_left')
-            if event.key == pygame.K_RIGHT:
-                self.update('stand_right')
-            if event.key == pygame.K_UP:
-                self.update('stand_up')
-            if event.key == pygame.K_DOWN:
-                self.update('stand_down')
-
-    def moove(self):
-        # Before main loop
-        human_files = ["human1.png", "human2.png"]
-        human_sprites = [pygame.image.load(filename).convert_alpha() for filename in human_files]
-        human1_index = 0
-
-        ...
-
-        # During main loop
-        if (human1_position.left <= 555):
-            human1_position = human1_position.move(2, 0)  # move first human
-            human1_index = (human_index + 1) % len(human_sprites)  # change sprite
-        else:
-            move = STOP
-            human1_index = 0
-        human1 = human_sprites[human1_index]
-        screen.blit(human1, human1_position)
-        pygame.display.update()
+        self.update(self.arrayPosition[self.pos])
+        self.orientation = self.arrayPosition[self.pos]
+        self.update(self.arrayPosition[self.pos]+'_left')
